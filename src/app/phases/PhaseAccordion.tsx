@@ -10,7 +10,7 @@ export function PhaseAccordion(props: {phase: Phase}){
     const [phase, setPhase] = useState<Phase>();
     
     useEffect(() => {
-        axios.get(`http://localhost:8080/sets/${props.phase.id}`)
+        axios.get(`https://match-tracker.onrender.com/sets/${props.phase.id}`)
             .then(response => {
                 setPhase(response.data.phase);
                 console.log(response.data.phase)

@@ -14,7 +14,7 @@ function App() {
   
   useEffect(() => {
     setLoading(true);
-    axios.get('http://localhost:8080/tournaments/ongoing')
+    axios.get('https://match-tracker.onrender.com/tournaments/ongoing')
       .then(response => {
         if(response.data){
           console.log(response.data)
