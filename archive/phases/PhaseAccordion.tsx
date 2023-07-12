@@ -10,7 +10,7 @@ export function PhaseAccordion(props: {phase: Phase}){
     const [phase, setPhase] = useState<Phase>();
     
     useEffect(() => {
-        axios.get(`https://match-tracker.onrender.com/sets/${props.phase.id}`)
+        axios.get(`http://localhost:8080/sets/${props.phase.id}`)
             .then(response => {
                 setPhase(response.data.phase);
                 console.log(response.data.phase)
@@ -49,7 +49,7 @@ export function PhaseAccordion(props: {phase: Phase}){
                         aria-controls="panel1a-content"
                         id="panel1a-header"
                     >
-                        <Typography width={'80%'}>{phase.name}</Typography>
+                        <Typography width={'70%'}>{phase.name}</Typography>
                         <Typography>{stateConverter(phase.state)}</Typography>
                         
                     </AccordionSummary>
