@@ -16,19 +16,19 @@ export function Tournament() {
     });
 
     const tournament = data?.tournament;
-
-
-    if(data) return (
-        <Container maxW='100vw' background='black' textColor='white' p={0} minH='100vh' centerContent>
-            <Header/>
-            <Image src={tournament.images.filter(image => image.type === 'banner' ? 1 : 0)[0].url} h='380px' w='100vw' objectFit='cover'/>
-            <Hero tournament={tournament} />
-            <Card minW='980px' background='white' py='24px' borderRadius='16px' my='30px'>
-                <Heading pl='24px'>Events</Heading>
-                <Accordion allowMultiple allowToggle mt='16px'>
-                    {tournament.events?.length > 0 && tournament.events.map(event => <Event event={event} />)}
-                </Accordion>
-            </Card>
-        </Container>
-    )
+    if(data) {
+        const imageSrc = tournament.images?.filter(image => image.type === 'banner' ? 1 : 0)[0]?.url;
+        return (
+            <Container maxW='100vw' background='black' display='flex' flexDir='column' textColor='white' p={0} minH='100vh' >
+                <Header/>
+                {imageSrc && <Image src={imageSrc} h='380px' w='100vw' objectFit='cover'/>}
+                <Container maxW='980px' mt={imageSrc ? '-150px' : '64px'}>
+                    <Box>
+                        <Hero tournament={tournament} />
+                        {tournament.events?.map(event => <Event event={event} />)}
+                    </Box>
+                </Container>    
+            </Container>
+        )
+    }
 }

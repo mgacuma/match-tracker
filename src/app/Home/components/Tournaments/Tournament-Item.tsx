@@ -54,7 +54,7 @@ export function TournamentItem(props: {tournament: any}){
                     </Box>
                     <Box display='flex' flexDirection='row' mt='4px' alignContent='center'>
                         <Icon as={FiMapPin} verticalAlign="center" viewBox="0 0 25 15" />
-                        <Text fontSize='16px' lineHeight='16px' ml='10px' >{location}</Text>
+                        <Text fontSize='16px' lineHeight='16px' ml='10px' isTruncated >{location}</Text>
                     </Box>
                     <Box display='flex' flexDirection='row' mt='4px' alignContent='center'>
                         <Icon as={FiUser} verticalAlign="center" viewBox="0 0 25 15" />

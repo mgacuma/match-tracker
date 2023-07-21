@@ -36,7 +36,7 @@ export function Tournaments(props: {
     let { loading, error, data } = tournaments!
 
     return(
-        <Container background={'white'} maxW='container.xl' mx={{sm: '20px', lg: '42px', xl: 'auto'}} borderRadius='20px' px='30px' py='30px' my='42px'>
+        <Container background='white' maxW='container.xl' mx={{sm: '20px', lg: '42px', xl: 'auto'}} borderRadius='20px' px='30px' py='30px' my='42px'>
             
             {loading && <Skeleton height='48px' mb='20px' width='440px' />}
             

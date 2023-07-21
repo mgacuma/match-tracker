@@ -7,6 +7,8 @@ import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@ap
 import { setContext } from '@apollo/client/link/context';
 import { Home } from './app/Home/Home';
 import { Event } from './app/Tournament/components/Event/Event'
+import { Phase } from './app/Tournament/components/Phase/Phase';
+import { PhaseModal } from './app/Tournament/components/Phase/components/PhaseModal';
 
 const router = createBrowserRouter([
   {
@@ -20,7 +22,18 @@ const router = createBrowserRouter([
   {
     path: 'tournament/:tournamentId/event/:eventId',
     element: <Event />
-  }
+  },
+  {
+    path: 'tournament/:tournamentId/event/:eventId/phase/:phaseId',
+    element: <Phase />,
+    children: [
+      {
+        path: 'phaseGroupId/:phaseGroupId',
+        element: <PhaseModal />
+      }
+    ]
+  },
+
   
 ], {basename: '/match-tracker'})
 
@@ -29,11 +42,11 @@ const httpLink = createHttpLink({
 });
 
 const authLink = setContext((_, { headers }) => {
-  const token = '6c09c09737ba4f7f30d53085c91f8b97'
+  const token = import.meta.env.VITE_GQL_TOKEN
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : "",
+      authorization: token ? `Bearer ${token}` : "Bearer ",
     }
   }
 });

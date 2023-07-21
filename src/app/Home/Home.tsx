@@ -1,4 +1,4 @@
-import { Container, background } from "@chakra-ui/react";
+import { Container } from "@chakra-ui/react";
 import { Header } from "../Header/Header";
 import { Tournaments } from "./components/Tournaments/Tournaments";
 import { useEffect, useState } from "react";

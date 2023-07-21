@@ -33,11 +33,11 @@ export function Hero(props: {tournament: any}) {
     }
 
     return (
-        <Card minW='980px' maxW='980px' minH='280px' background='white' p={0} borderRadius='16px' mt={-180} flexDirection='row' alignContent={'center'} justifyContent={'center'}>
-            <Container display='flex'  dir="row" pt='24px' px='24px' w='50%'>
+        <Card minH='240px' background='white' p={0} borderRadius='16px' flexDirection='row' alignContent='center' justifyContent={'center'}>
+            <Container display='flex'  dir="row" p='24px' w='50%'>
                 <Image boxSize='96px' objectFit='cover' src={props.tournament.images[0].url} fallback={<Image boxSize='64px' objectFit='cover' />} />
                 <Container ml='16px' p={0}>
-                    <Heading  size='lg' >{props.tournament.name}</Heading>
+                    <Heading  size={props.tournament.name?.length > 32 ? 'md' : 'lg'}>{props.tournament.name}</Heading>
                     <Box display='flex' flexDirection='row' mt='16px' alignContent='center'>
                         <Icon as={FiCalendar} verticalAlign="center" viewBox="0 0 25 15" />
                         <Text fontSize='16px' lineHeight='16px' ml='10px' >{formattedDate}</Text>
