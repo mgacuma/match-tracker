@@ -1,14 +1,10 @@
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Button, Card, Container, Divider, Flex, HStack, Heading, Icon, Image, Spacer, Text, VStack, useDisclosure, Skeleton, Tag, Link  } from "@chakra-ui/react";
-import { Outlet, useParams } from "react-router-dom";
-import { Header } from "../../../Header/Header";
 import { useQuery } from "@apollo/client";
 import { GET_PHASE } from "./queries/GET_PHASE";
-import { NavTier } from "../Nav/NavTier";
-import { FiCircle } from "react-icons/fi";
 import { PhaseGroup } from "./components/PhaseGroup";
 import { StatusIndicator } from "../Event/StatusIndicator";
 import { BracketIndicator } from "./components/BracketIndicator";
-import { useState } from "react";
+import { Key, useState } from "react";
+import { AccordionItem, AccordionButton, Flex, VStack, Heading, HStack, Divider, Spacer, Tag, Skeleton, AccordionIcon, AccordionPanel, Button, Text } from "@chakra-ui/react";
 
 
 
@@ -23,11 +19,15 @@ export function Phase(props: {phase: any}){
 
     const [showAll, setShowAll] = useState(false)
 
-    
-    if(loading){
-        const phase = props.phase;
+    let phase;
 
-        return(
+    if(data){
+        phase = data.phase
+    } else phase = props.phase
+    
+    return( 
+        <>
+        { loading && 
             <AccordionItem>
                 <AccordionButton>
                     <Flex w='100%' alignItems='center'>
@@ -54,14 +54,9 @@ export function Phase(props: {phase: any}){
                     </VStack>
                 </AccordionPanel>
             </AccordionItem>
-        )
-
-    } else if(data) {
-        const phase = data.phase;
-
-        console.log(data)
-
-        return(
+        }
+        
+        { data && 
             <AccordionItem>
 
                 <AccordionButton>
@@ -74,7 +69,6 @@ export function Phase(props: {phase: any}){
                                     <Text key={'numPools'}>{ phase.groupCount + ' Pools' }</Text>: 
                                     <Text key={'numPools'}>{ phase.groupCount + ' Pool' }</Text>
                                 }
-                                
                                 <BracketIndicator key={'type'} state={phase.bracketType} />
                             </HStack>
                         </VStack>
@@ -85,15 +79,16 @@ export function Phase(props: {phase: any}){
                 </AccordionButton>
 
                 <AccordionPanel>
-                    {!showAll && phase.phaseGroups.nodes.slice(0, 8).map(phaseGroup => 
+                    {!showAll && phase.phaseGroups.nodes.slice(0, 8).map((phaseGroup: { id: Key | null | undefined; }) => 
                         <PhaseGroup phaseGroup={phaseGroup} key={phaseGroup.id} />
                     )}
-                    {showAll && phase.phaseGroups.nodes.map(phaseGroup => 
+                    {showAll && phase.phaseGroups.nodes.map((phaseGroup: { id: Key | null | undefined; }) => 
                         <PhaseGroup phaseGroup={phaseGroup} key={phaseGroup.id} />
                     )}
                     {!showAll && phase.phaseGroups.nodes.length > 8 && <Button variant='link' onClick={() => {setShowAll(true)}} p='8px' justifyContent='center'  w='100%' background='none' h='100%' borderRadius='0px'><Text>View all {phase.phaseGroups.nodes.length} pools</Text></Button>}
                 </AccordionPanel>
             </AccordionItem>
-        )
-    }
+        }
+        </>
+    )
 }

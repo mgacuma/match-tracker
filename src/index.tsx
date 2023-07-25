@@ -8,33 +8,29 @@ import { setContext } from '@apollo/client/link/context';
 import { Home } from './app/Home/Home';
 import { Event } from './app/Tournament/components/Event/Event'
 import { Phase } from './app/Tournament/components/Phase/Phase';
-import { PhaseModal } from './app/Tournament/components/Phase/components/PhaseModal';
+import { Layout } from './app/Layout/Layout';
 
 const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Home />,
-  },
-  {
-    path: 'tournament/:tournamentId',
-    element: <Tournament />,
-  },
-  {
-    path: 'tournament/:tournamentId/event/:eventId',
-    element: <Event />
-  },
-  {
-    path: 'tournament/:tournamentId/event/:eventId/phase/:phaseId',
-    element: <Phase />,
+  { element: <Layout />,
     children: [
       {
-        path: 'phaseGroupId/:phaseGroupId',
-        element: <PhaseModal />
-      }
+        path: '/',
+        element: <Home />
+      },
+      {
+        path: 'tournament/:tournamentId',
+        element: <Tournament />,
+      },
+      {
+        path: 'tournament/:tournamentId/event/:eventId',
+        element: <Event event='' />
+      },
+      {
+        path: 'tournament/:tournamentId/event/:eventId/phase/:phaseId',
+        element: <Phase phase='' />,
+      },
     ]
-  },
-
-  
+  }
 ], {basename: '/match-tracker'})
 
 const httpLink = createHttpLink({

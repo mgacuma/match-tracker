@@ -8,7 +8,7 @@ import { SearchBar } from "./components/SearchBar";
 
 export function Header (props: {}) {
 
-    const [hasAccount, setHasAccount] = useState<boolean>('true')
+    const [hasAccount, setHasAccount] = useState<boolean>(true)
 
     function toggleUser(){
         setHasAccount(!hasAccount)

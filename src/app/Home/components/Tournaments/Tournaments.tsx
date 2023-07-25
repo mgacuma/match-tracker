@@ -2,7 +2,7 @@ import { Container, Heading, SimpleGrid, Skeleton } from "@chakra-ui/react"
 import { TournamentItem } from "./Tournament-Item"
 import { useQuery } from "@apollo/client";
 import { GET_UPCOMING_TOURNAMENTS } from "../../queries/GET_UPCOMING_TOURNAMENTS";
-import { SkeletonItem } from "../Skeletons/Skeleton-Item";
+import { SkeletonTournamentItem } from "./Skeleton-Tournament-Item";
 import { GET_LOCAL_TOURNAMENTS } from "../../queries/GET_LOCAL_TOURANMENTS";
 import { GET_ONLINE_TOURNAMENTS } from "../../queries/GET_ONLINE_TOURNAMENTS";
 
@@ -13,8 +13,7 @@ export function Tournaments(props: {
     countryCode?: string, 
     coordinates?: string
 }){
-
-    let tournaments = {loading: true}
+    let tournaments: {loading: boolean, data: any} = {loading: true, data: undefined}
     let heading
 
     if(props.featured){
@@ -33,10 +32,10 @@ export function Tournaments(props: {
         heading = 'Online Tournaments'
     }
 
-    let { loading, error, data } = tournaments!
+    let { loading, data } = tournaments!
 
     return(
-        <Container background='white' maxW='container.xl' mx={{sm: '20px', lg: '42px', xl: 'auto'}} borderRadius='20px' px='30px' py='30px' my='42px'>
+        <Container background='white' maxW='container.xl' mx={{sm: '20px', lg: '42px', xl: 'auto'}} borderRadius='20px' px='30px' py='30px' mb='64px'>
             
             {loading && <Skeleton height='48px' mb='20px' width='440px' />}
             
@@ -44,18 +43,18 @@ export function Tournaments(props: {
 
             {loading && 
                 <SimpleGrid minChildWidth={{sm:'270px', md: '320px'}} spacingX='30px' spacingY='30px' >
-                    <SkeletonItem />
-                    <SkeletonItem />
-                    <SkeletonItem />
-                    <SkeletonItem />
-                    <SkeletonItem />
-                    <SkeletonItem />
+                    <SkeletonTournamentItem />
+                    <SkeletonTournamentItem />
+                    <SkeletonTournamentItem />
+                    <SkeletonTournamentItem />
+                    <SkeletonTournamentItem />
+                    <SkeletonTournamentItem />
                 </SimpleGrid>
             }
 
             {data && 
                 <SimpleGrid minChildWidth={{sm:'270px', md: '320px'}} spacingX='30px' spacingY='30px' >
-                    {data.tournaments.nodes.map(tournament => <TournamentItem key={tournament.id} tournament={tournament} />)}
+                    {data.tournaments.nodes.map((tournament: {id: string}) => <TournamentItem key={tournament.id} tournament={tournament} />)}
                 </SimpleGrid>
             }
         </Container>

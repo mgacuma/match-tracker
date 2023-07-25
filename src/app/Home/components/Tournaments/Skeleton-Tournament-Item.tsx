@@ -1,8 +1,7 @@
 import { Card, Container, Text, Image, Heading, ButtonGroup, Button, Link, Skeleton } from "@chakra-ui/react";
-import { Link as RouterLink } from 'react-router-dom'
 
 
-export function SkeletonItem(){
+export function SkeletonTournamentItem(){
     
     return(
         <Card borderRadius='24px' >

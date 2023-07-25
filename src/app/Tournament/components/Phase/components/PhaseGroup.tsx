@@ -4,7 +4,7 @@ import { Link as RouterLink } from 'react-router-dom';
 export function PhaseGroup(props: { phaseGroup: any }){
     const phaseGroup = props.phaseGroup
 
-    const states = {
+    const states: { [key: string]: any } = {
         1: 'Not Started',
         2: 'In Progress',
         3: 'Complete',
@@ -27,13 +27,13 @@ export function PhaseGroup(props: { phaseGroup: any }){
         <Box w='100%'>
             <Button as={Link} href={phaseGroup.bracketUrl} target='_blank' style={{textDecoration: 'none'}} p='8px' justifyContent='none'  w='100%' background='none' h='100%' borderRadius='0px'>
                 <Flex dir='row' justifyContent='start' alignItems='center' textOverflow='clip' overflow='clip'>
-                    <VStack spacing={2}>
+                    <VStack spacing={2} alignItems='start'>
                         <Heading size='md'>{'Pool ' + phaseGroup.displayIdentifier + ' '}</Heading>
                         <Text fontWeight={300}>{states[phaseGroup.state]}</Text>
                     </VStack>
                     <Box px='16px'>
                         <HStack>
-                            {phaseGroup.seeds?.nodes?.slice(0, 4).map(seed => <Text>{formatName(seed?.entrant?.name)}</Text>)}
+                            {phaseGroup.seeds?.nodes?.slice(0, 4).map((seed: { entrant: { name: string; }; }) => <Text>{formatName(seed?.entrant?.name)}</Text>)}
                         </HStack>
                     </Box>
                 </Flex>

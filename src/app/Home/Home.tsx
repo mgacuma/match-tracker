@@ -1,11 +1,9 @@
-import { Container } from "@chakra-ui/react";
-import { Header } from "../Header/Header";
+import { Box } from "@chakra-ui/react";
 import { Tournaments } from "./components/Tournaments/Tournaments";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Footer } from "../Footer/Footer";
 
-export function Home(props: {}){
+export function Home(){
 
     const [countryCode, setCountryCode] = useState(undefined);
     const [coordinates, setCoordinates] = useState('');
@@ -21,14 +19,11 @@ export function Home(props: {}){
     }, []);
 
     return(
-            <Container maxW='100vw' background='black' textColor='white' p={0} minH='100vh'>
-                <Header />
+            <Box>
                 <Tournaments featured countryCode={countryCode} coordinates={coordinates} />
                 <Tournaments local countryCode={countryCode} coordinates={coordinates} />
                 <Tournaments online />
                 <Tournaments countryCode={countryCode} coordinates={coordinates} />
-                <Footer />
-            </Container>
-
+            </Box>
     )
 }

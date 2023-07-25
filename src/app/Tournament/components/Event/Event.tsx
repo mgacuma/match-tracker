@@ -1,6 +1,5 @@
-import { Box, Button, ButtonGroup, Card, Container, Flex, Heading, Spacer, VStack, Text, StackDivider, Link, textDecoration, AccordionItem, AccordionButton, AccordionIcon, AccordionPanel, Accordion } from "@chakra-ui/react";
-import { Link as RouterLink } from 'react-router-dom'
-import { StatusIndicator } from "./StatusIndicator";
+
+import { Accordion, Box, Card, HStack, Heading, Text } from "@chakra-ui/react";
 import { Phase } from "../Phase/Phase";
 
 export function Event(props: {event: any}) {
@@ -10,9 +9,9 @@ export function Event(props: {event: any}) {
     return (
         <Card background='white' p='24px' borderRadius='16px' my='36px'>
             <Heading mb='16px'>{event.name}</Heading>
-            <Accordion allowMultiple>
-                {event.phases.length > 0 && event.phases.map(phase => <Phase phase={phase} />)}
-                {event.phases.length < 1 && <Text>No Brackets Yet</Text>}
+            <Accordion allowMultiple defaultIndex={event?.phases?.length === 1 ? [0] : [-1]}>
+                {event.phases.length > 0 && event.phases.map((phase: any) => <Phase phase={phase} />)}
+                {event.phases.length < 1 && <HStack justifyContent='center'><Text pt='48px' pb='64px'>No Brackets Yet</Text></HStack>}
             </Accordion>
         </Card>
     )

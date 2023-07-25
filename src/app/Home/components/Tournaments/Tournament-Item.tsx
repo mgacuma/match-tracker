@@ -8,7 +8,7 @@ export function TournamentItem(props: {tournament: any}){
     let image
 
     if(props.tournament.images.length > 0){
-        image = props.tournament.images.filter(image => image.type === 'profile' ? 1 : 0)[0];
+        image = props.tournament.images.filter((image: {type: string}) => image.type === 'profile' ? 1 : 0)[0];
     }
     
     if(!image){

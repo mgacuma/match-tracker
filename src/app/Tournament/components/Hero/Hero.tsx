@@ -4,8 +4,8 @@ import { FiCalendar, FiMapPin, FiUser } from "react-icons/fi";
 
 export function Hero(props: {tournament: any}) {
     
-    let games = new Object();
-    props.tournament.events.forEach(event => games[event.videogame.name] = true)
+    let games: { [key: string]: any } = {};;
+    props.tournament.events.forEach((event: { videogame: { name: string; }; }) => games[event.videogame.name] = true)
 
     let startDate = dayjs.unix(props.tournament.startAt)
     let endDate = dayjs.unix(props.tournament.endAt)
@@ -48,7 +48,7 @@ export function Hero(props: {tournament: any}) {
                     </Box>
                     <Box display='flex' flexDirection='row' mt='12px' alignContent='center'>
                         <Icon as={FiUser} verticalAlign="center" viewBox="0 0 25 15" />
-                        <Text fontSize='16px' lineHeight='16px' ml='10px' >{props.tournament.numAttendees + ' Attendees'}</Text>
+                        <Text fontSize='16px' lineHeight='16px' ml='10px' >{props.tournament.numAttendees ? props.tournament.numAttendees : '0' + ' Attendees'}</Text>
                     </Box>
                 </Container>
             </Container>
