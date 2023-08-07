@@ -13,7 +13,7 @@ export function TournamentGrid(props: { tournaments: Tournament[]}){
     async function handleOpen(tournament: Tournament) {
         setLoading(true);
         setOpen(true);
-        const { data } = await axios.get(`https://match-tracker.onrender.com/events/${tournament.id}`);
+        const { data } = await axios.get(`http://localhost:8080/events/${tournament.id}`);
         if(!data.errors){
             tournament.events = data;
         }

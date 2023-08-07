@@ -28,6 +28,7 @@ export function TournamentModal(props: { tournament: Tournament, handleClose: an
                     position: 'absolute',
                     right: 8,
                     top: 8,
+                    zIndex: 10,
                     color: (theme) => theme.palette.grey[500],
                 }}
             >
