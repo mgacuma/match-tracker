@@ -21,9 +21,9 @@ export function Home(){
     return(
             <Box>
                 <Tournaments featured countryCode={countryCode} coordinates={coordinates} />
+                <Tournaments upcoming countryCode={countryCode} coordinates={coordinates} />
                 <Tournaments local countryCode={countryCode} coordinates={coordinates} />
                 <Tournaments online />
-                <Tournaments countryCode={countryCode} coordinates={coordinates} />
             </Box>
     )
 }

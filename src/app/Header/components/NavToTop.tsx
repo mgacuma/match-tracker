@@ -17,7 +17,7 @@ export function NavToTop() {
     return (
         <Fade in={trigger}>
             <Box onClick={scrollToTop} position='fixed' bottom='32px' right='32px' zIndex={99999}>
-                <IconButton icon={<FiChevronUp/>} size='lg' rounded='full' color='#27323d' aria-label="Nav to top" />
+                <IconButton icon={<FiChevronUp/>} size='lg' rounded='full' color='#27323d' boxShadow='xl' aria-label="Nav to top" />
             </Box>
         </Fade>
     )

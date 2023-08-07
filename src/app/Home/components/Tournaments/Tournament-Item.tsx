@@ -40,8 +40,6 @@ export function TournamentItem(props: {tournament: any}){
         }
     }
     
-
-    
     return(
         <Card borderRadius='20px' >
             <Container display='flex' dir="row" pt='18px' px='18px'>
@@ -58,7 +56,7 @@ export function TournamentItem(props: {tournament: any}){
                     </Box>
                     <Box display='flex' flexDirection='row' mt='4px' alignContent='center'>
                         <Icon as={FiUser} verticalAlign="center" viewBox="0 0 25 15" />
-                        <Text fontSize='16px' lineHeight='16px' ml='10px' >{props.tournament.numAttendees}</Text>
+                        <Text fontSize='16px' lineHeight='16px' ml='10px' >{props?.tournament?.numAttendees ? props.tournament.numAttendees : 0}</Text>
                     </Box>
                 </Container>
             </Container>

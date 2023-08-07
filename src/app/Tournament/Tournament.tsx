@@ -2,7 +2,6 @@ import { Accordion, Box, Card, Center, ChakraComponent, Container, Divider, Head
 import { useParams } from 'react-router-dom';
 import { GET_TOURNAMENT } from './queries.ts/GET_TOURNAMENT';
 import { useQuery } from '@apollo/client';
-import { Header } from '../Header/Header';
 import { Hero } from './components/Hero/Hero';
 import { Event } from './components/Event/Event';
 import { HeroSkeleton } from './components/Hero/Hero-Skeleton';

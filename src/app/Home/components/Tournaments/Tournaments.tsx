@@ -5,9 +5,12 @@ import { GET_UPCOMING_TOURNAMENTS } from "../../queries/GET_UPCOMING_TOURNAMENTS
 import { SkeletonTournamentItem } from "./Skeleton-Tournament-Item";
 import { GET_LOCAL_TOURNAMENTS } from "../../queries/GET_LOCAL_TOURANMENTS";
 import { GET_ONLINE_TOURNAMENTS } from "../../queries/GET_ONLINE_TOURNAMENTS";
+import { GET_EVO } from "../../queries/GET_EVO";
+import { GET_FEATURED_TOURNAMENTS } from "../../queries/GET_FEATURED_TOURNAMENTS";
 
 export function Tournaments(props: {
     local?: boolean, 
+    upcoming?: boolean,
     featured?:boolean, 
     online?: boolean,
     countryCode?: string, 
@@ -17,8 +20,11 @@ export function Tournaments(props: {
     let heading
 
     if(props.featured){
-        tournaments = useQuery(GET_UPCOMING_TOURNAMENTS)
+        tournaments = useQuery(GET_FEATURED_TOURNAMENTS)
         heading = 'Featured Tournaments'
+    } else if(props.upcoming){
+        tournaments = useQuery(GET_UPCOMING_TOURNAMENTS)
+        heading = 'Upcoming Tournaments'
     }
     else if(props.local){
         tournaments = useQuery(GET_LOCAL_TOURNAMENTS, {

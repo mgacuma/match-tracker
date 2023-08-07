@@ -5,8 +5,8 @@ export function HeroSkeleton(){
     return(
         <Card minH='240px' background='white' p={0} borderRadius='16px' flexDirection='row' alignContent='center' justifyContent={'center'}>
             <HStack p='24px' w='50%' alignItems='start' gap='16px'>
-                <Skeleton boxSize='96px' />
-                <Box flex={2}>
+                <Skeleton key='image' boxSize='96px' />
+                <Box key='details' flex={2}>
                     <Skeleton size='lg' />
                     <Box display='flex' flexDirection='column'>
                         <Skeleton h='48px' w='80%' mb='16px'/>
