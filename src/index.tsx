@@ -69,7 +69,7 @@ Amplify.configure({
   userPoolWebClientId: import.meta.env.VITE_COGNITO_WEB_CLIENT_ID,
   cookieStorage: {
       domain: import.meta.env.VITE_ENV === 'prod' ? import.meta.env.VITE_COGNITO_PROD_DOMAIN : 'localhost',
-      path: "/",
+      path: "/match-tracker",
       expires: 365,
       sameSite: "strict",
       secure: true,

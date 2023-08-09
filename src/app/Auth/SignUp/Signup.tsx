@@ -10,13 +10,16 @@ export function Signup(){
     const [ name, setName ] = useState('');
     const [ password, setPassword ] = useState('');
 
-    const { signUp } = useAuth();
+    const { signUp, isAuthenticated } = useAuth();
 
     
     function onSubmit(event: React.FormEvent<HTMLFormElement>){
         event.preventDefault();
 
         signUp(username, password, {email, name})
+            .then(result => {
+                window.location.assign('/match-tracker/login?signUp=true')
+            })
             .catch(err => {
                 console.error(err)
             })
@@ -26,6 +29,7 @@ export function Signup(){
   
     const onClickReveal = () => {
       onToggle()
+      window.location.assign('/match-tracker/login')
     }
     
     return(

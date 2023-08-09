@@ -45,6 +45,7 @@ const useAuthContext = (): IAuthContext => {
             setIsAuthenticated(true);
             return { success: true };
         } catch (error: any) {
+            console.log(error)
             return {
                 success: false,
                 type: error.name,

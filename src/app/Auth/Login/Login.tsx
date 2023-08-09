@@ -1,23 +1,61 @@
-import { Box, Button, Card, Checkbox, Container, Divider, FormControl, FormLabel, HStack, Heading, IconButton, Input, InputGroup, InputRightElement, Link, Stack, Text, useDisclosure } from "@chakra-ui/react";
-import { Link as RLink } from 'react-router-dom';
-import { useState, useContext } from "react";
+import { Box, Button, Card, Checkbox, Container, Divider, FormControl, FormLabel, HStack, Heading, IconButton, Input, InputGroup, InputRightElement, Link, Show, Stack, Text, useDisclosure } from "@chakra-ui/react";
+import { Link as RLink, useSearchParams } from 'react-router-dom';
+import { useState } from "react";
 import { HiEyeOff, HiEye } from "react-icons/hi";
 import { useAuth } from "../AuthProvider";
 
 export function Login(){
+    const { signIn, isAuthenticated } = useAuth();
+    
+    if(isAuthenticated){
+        window.location.pathname = '/match-tracker/'
+    }
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const { signIn } = useAuth();
+    const [invalidUsername, setInvalidUsername] = useState(false);
+    const [invalidPassword, setInvalidPassword] = useState(false);
+
+    const [errorMessage, setErrorMessage] = useState('');
+
+    const [searchParams, setSearchParams] = useSearchParams();
+    const signUp = searchParams.get('signUp')
 
     function onSubmit(e: React.FormEvent<HTMLButtonElement>){
         e.preventDefault();
+
+        setSearchParams({});
+
+        if(!username){
+            setInvalidUsername(true);
+            setErrorMessage('Username cannot be empty.');
+        } else {
+            setInvalidUsername(false);
+        }
+        if(!password){
+            setInvalidPassword(true);
+            setErrorMessage('Password cannot be empty.');
+        } else {
+            setInvalidPassword(false);
+        }
+        if(!username && !password){
+            setErrorMessage('Please enter credentials.')
+        }
         
-        signIn(username, password)
-            .catch(err => {
-                console.error(err)
-            })
+        if(username && password){
+            
+            signIn(username, password)
+                .then((result) => {
+                    if(result.success){
+                        window.location.pathname = '/match-tracker/';
+                    } else {
+                        setInvalidUsername(true);
+                        setInvalidPassword(true);
+                        setErrorMessage(result.message!);
+                    }
+                })
+        }
     }
 
     const { isOpen, onToggle } = useDisclosure()
@@ -51,11 +89,21 @@ export function Login(){
                     <Stack spacing="5">
                         <FormControl>
                             <FormLabel htmlFor="username">Username</FormLabel>
-                            <Input id="username" type="text" onChange={(e) => setUsername(e.target.value)}/>
+                            <Input id="username" isInvalid={invalidUsername} errorBorderColor='crimson' type="text" onChange={(e) => setUsername(e.target.value)}/>
                         </FormControl>
                         <FormControl>
                             <FormLabel htmlFor="password">Password</FormLabel>
                             <InputGroup>
+                            <Input
+                                id="password"
+                                name="password"
+                                type={isOpen ? 'text' : 'password'}
+                                autoComplete="current-password"
+                                required
+                                isInvalid={invalidPassword} 
+                                errorBorderColor='crimson'
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
                             <InputRightElement>
                                 <IconButton
                                 variant="text"
@@ -64,16 +112,10 @@ export function Login(){
                                 onClick={onClickReveal}
                                 />
                             </InputRightElement>
-                            <Input
-                                id="password"
-                                name="password"
-                                type={isOpen ? 'text' : 'password'}
-                                autoComplete="current-password"
-                                required
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
                             </InputGroup>
                         </FormControl>
+                        { (invalidUsername || invalidPassword) && <Text color='crimson'>{errorMessage}</Text>}
+                        { signUp && <Text color='green.500'>Account created successfully.</Text>}
                     </Stack>
                     <HStack justify="space-between">
                         <Checkbox defaultChecked>Remember me</Checkbox>
