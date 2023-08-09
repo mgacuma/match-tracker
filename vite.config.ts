@@ -1,5 +1,5 @@
-import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite'
 
 import { join, parse, resolve } from "path";
 
@@ -19,6 +19,10 @@ function entryPoints(...paths) {
 export default defineConfig({
   base: '/match-tracker',
   plugins: [react()],
+  resolve: { alias: { './runtimeConfig': './runtimeConfig.browser' } },
+  define: {
+    'window.global': {},
+  },
   build: {
     rollupOptions: {
       input: entryPoints(
