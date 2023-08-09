@@ -1,21 +1,25 @@
-import { Flex, Menu, MenuButton, Button, Avatar, MenuList, MenuItem, MenuDivider } from "@chakra-ui/react";
+import { Flex, Menu, MenuButton, Button, Avatar, MenuList, MenuItem, MenuDivider, CircularProgress } from "@chakra-ui/react";
+import { useAuth } from "../../Auth/AuthProvider";
 
 export function UserMenu(){
+    const { isAuthenticated, user, signOut, isLoading } = useAuth();
+
     return(<Flex alignItems='center'>
-                <Menu >
+                <Menu closeOnSelect={false}>
                     <MenuButton color='black'
                         as={Button}
                         rounded='full'
                         variant='link'
                         cursor='pointer'>
-                        <Avatar size='md' backgroundColor='gray.400'/>
+                        <Avatar size='md' name={user.getUsername()} backgroundColor='gray.400'/>
                     </MenuButton>
                 <MenuList color='black'>
-                    <MenuItem>Link 1</MenuItem>
+                    <MenuItem>Saved Items</MenuItem>
                     <MenuDivider />
-                    <MenuItem>Link 2</MenuItem>
+                    <MenuItem>Watching</MenuItem>
                     <MenuDivider />
-                    <MenuItem>Link 3</MenuItem>
+                    <MenuItem>Settings</MenuItem>
+                    {isAuthenticated && <div><MenuDivider/><MenuItem onClick={signOut} isDisabled={isLoading}> Log Out</MenuItem> </div>}
                 </MenuList>
                 </Menu>
             </Flex>
