@@ -10,11 +10,10 @@ Welcome to Matchtracker.gg! A [lightweight] [vite](https://vitejs.dev/) + Typesc
 ## Table of Contents
 
 - [Features](#features)
-- [Usage](#usage)
-- [Configuration](#configuration)
+- [Usage](#screenshots)
 - [Contributing](#contributing)
+    - [Contact Me](#contact-me)
 - [License](#license)
-- [Acknowledgements](#acknowledgements)
 
 ## Features
 
