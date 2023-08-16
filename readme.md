@@ -5,7 +5,7 @@
 
 ## Description
 
-Welcome to Matchtracker.gg! A [lightweight] [vite](https://vitejs.dev/) + Typescript + React web app] that [queries from [start.gg](https://www.start.gg/)] GraphQL data. This project is designed to [display dynamic tournament information with lightweight GraphQL queries to support congested traffic conditions like Major tournaments]. With a focus on [quick and lightweight queries], Matchtracker.gg empowers [tournament spectators] to [stay up to date on highly anticipated matches].
+Welcome to Matchtracker.gg! A lightweight [vite](https://vitejs.dev/) + Typescript + React web app that queries [start.gg](https://www.start.gg/) GraphQL data. This project is designed to display dynamic tournament information with lightweight GraphQL queries to support congested traffic conditions like Major tournaments. With a focus on quick and lightweight queries, Matchtracker.gg empowers tournament spectators to stay up to date on highly anticipated matches.
 
 ## Table of Contents
 
