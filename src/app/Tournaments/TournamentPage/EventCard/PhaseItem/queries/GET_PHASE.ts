@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client';
 
 export const GET_PHASE = gql`
     query GetPhase($phaseId: ID){
@@ -36,4 +36,4 @@ export const GET_PHASE = gql`
             
         }
     }
-`
+`;

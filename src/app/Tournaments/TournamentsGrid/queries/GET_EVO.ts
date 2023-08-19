@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client';
 
 export const GET_EVO = gql`
     query GetEvoTournament {
@@ -21,4 +21,4 @@ export const GET_EVO = gql`
             }
         }
     }
-`
+`;
