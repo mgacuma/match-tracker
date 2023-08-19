@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client';
 
 export const GET_TOURNAMENT = gql`
     query GetTournament($tournamentId: ID) {
@@ -44,4 +44,4 @@ export const GET_TOURNAMENT = gql`
             startAt
         }
     }  
-`
+`;

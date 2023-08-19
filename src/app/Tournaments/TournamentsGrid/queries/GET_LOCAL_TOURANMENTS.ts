@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client';
 
 export const GET_LOCAL_TOURNAMENTS = gql`
     query GetLocalTournaments($coordinates: String) {
@@ -21,4 +21,4 @@ export const GET_LOCAL_TOURNAMENTS = gql`
             }
         }
     }
-`
+`;
