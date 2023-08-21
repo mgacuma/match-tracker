@@ -1,16 +1,16 @@
 import { useQuery } from "@apollo/client";
-import { GET_FEATURED_TOURNAMENTS } from "../queries/GET_FEATURED_TOURNAMENTS";
-import { GET_UPCOMING_TOURNAMENTS } from "../queries/GET_UPCOMING_TOURNAMENTS";
-import { GET_LOCAL_TOURNAMENTS } from "../queries/GET_LOCAL_TOURANMENTS";
-import { GET_ONLINE_TOURNAMENTS } from "../queries/GET_ONLINE_TOURNAMENTS";
+import { FEATURED_PAGE_INFO } from "./queries/FEATURED_PAGE_INFO";
+import { UPCOMING_PAGE_INFO } from "./queries/UPCOMING_PAGE_INFO";
+import { LOCAL_PAGE_INFO } from "./queries/LOCALS_PAGE_INFO";
+import { ONLINE_PAGE_INFO } from "./queries/ONLINE_PAGE_INFO";
 
-export function getTournamentsByRole(role: string, variables: { coordinates?: string, perPage?: number, page?: number }){
+export function getTournamentPageInfo(role: string, variables: { coordinates?: string, perPage?: number, page?: number }){
     let heading: string = '';
     let loading = false;
     let data = {};
 
     if(role === 'featured'){
-        const query = useQuery(GET_FEATURED_TOURNAMENTS, {
+        const query = useQuery(FEATURED_PAGE_INFO, {
             variables:{
                 page: variables.page,
                 perPage: variables.perPage,
@@ -21,7 +21,7 @@ export function getTournamentsByRole(role: string, variables: { coordinates?: st
         data = query.data;
     }
     if(role === 'upcoming'){
-        const query = useQuery(GET_UPCOMING_TOURNAMENTS, {
+        const query = useQuery(UPCOMING_PAGE_INFO, {
             variables: {
                 page: variables.page,
                 perPage: variables.perPage
@@ -32,7 +32,7 @@ export function getTournamentsByRole(role: string, variables: { coordinates?: st
         data = query.data;
     }
     if(role === 'local'){
-        const query = useQuery(GET_LOCAL_TOURNAMENTS, {
+        const query = useQuery(LOCAL_PAGE_INFO, {
             variables: {
                 coordinates: variables.coordinates,
                 page: variables.page,
@@ -44,7 +44,7 @@ export function getTournamentsByRole(role: string, variables: { coordinates?: st
         data = query.data;
     }
     if(role === 'online'){
-        const query = useQuery(GET_ONLINE_TOURNAMENTS, {
+        const query = useQuery(ONLINE_PAGE_INFO, {
             variables: {
                 page: variables.page,
                 perPage: variables.perPage
@@ -55,5 +55,5 @@ export function getTournamentsByRole(role: string, variables: { coordinates?: st
         data = query.data;
     }
 
-    return { heading, loading, data }
+    return { loading, data, heading }
 }

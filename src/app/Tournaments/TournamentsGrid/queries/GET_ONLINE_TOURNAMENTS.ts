@@ -1,9 +1,14 @@
 import { gql } from "@apollo/client";
 
 export const GET_ONLINE_TOURNAMENTS = gql`
-    query GetOnlineTournaments {
-        tournaments(query: {filter: {hasOnlineEvents: true, upcoming: true}}) {
-            nodes {
+    query GetOnlineTournaments($page: Int, $perPage: Int) {
+        tournaments(query: { perPage: $perPage, page: $page, filter: {hasOnlineEvents: true, upcoming: true}}) {
+            pageInfo {
+                total
+                totalPages
+                page
+                perPage
+            } nodes {
                 id
                 addrState
                 city

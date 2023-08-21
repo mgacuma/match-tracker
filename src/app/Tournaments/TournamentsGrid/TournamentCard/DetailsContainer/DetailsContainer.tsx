@@ -1,4 +1,4 @@
-import { Container, Heading, Box, Icon, Image, Text } from "@chakra-ui/react";
+import { Container, Heading, Box, Icon, Image, Text, Avatar } from "@chakra-ui/react";
 import { FiCalendar, FiMapPin, FiUser } from "react-icons/fi";
 import { filterProfileImage } from "./utils/filterProfileImage";
 import { formatDate } from "./utils/formatDate";
@@ -12,7 +12,7 @@ export function DetailsContainer(props: { tournament: any }){
     
     return(
         <Container display='flex' dir="row" pt='18px' px='18px'>
-            {image && <Image boxSize='64px' objectFit='cover' src={image.url} fallback={<Image boxSize='64px' objectFit='cover' />} />}
+            {image && <Avatar boxSize='64px' objectFit='cover' src={image.url} name={props.tournament?.name} borderRadius={0} />}
             <Container ml='16px' mr='16px' maxW='69%' p={0}>
                 <Heading  size='sm' isTruncated>{props.tournament.name}</Heading>
                 <Box display='flex' flexDirection='row' mt='8px' alignContent='center'>

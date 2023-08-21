@@ -29,7 +29,7 @@ export function TournamentPage() {
 
         { data && 
             <Box>
-                {image && <Image src={image.url} h='380px' w='100vw' objectFit='cover'/>}
+                {image && <Image id='banner' src={image.url} h='380px' w='100vw' objectFit='cover' fallback={<></>}/>}
                 <Container maxW='980px' mt={image?.url ? '-190px' : '72px'}>
                     <Box>
                         <HeroCard tournament={tournament} />

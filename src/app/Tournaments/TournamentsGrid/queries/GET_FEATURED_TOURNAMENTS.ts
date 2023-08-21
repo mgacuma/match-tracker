@@ -1,9 +1,14 @@
 import { gql } from "@apollo/client";
 
 export const GET_FEATURED_TOURNAMENTS = gql`
-    query GetFeaturedTournaments {
-        tournaments(query: {filter: {isFeatured: true, staffPicks: true}}) {
-            nodes {
+    query GetFeaturedTournaments($page: Int, $perPage: Int) {
+        tournaments(query: { perPage: $perPage, page: $page, filter: {isFeatured: false, staffPicks: true}}) {
+            pageInfo {
+                total
+                totalPages
+                page
+                perPage
+            } nodes {
                 id
                 addrState
                 city
