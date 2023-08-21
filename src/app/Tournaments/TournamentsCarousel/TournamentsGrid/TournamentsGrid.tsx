@@ -1,9 +1,9 @@
-import { Heading, SimpleGrid } from "@chakra-ui/react";
-import { SkeletonGrid } from "./TournamentsCarousel/TournamentsGrid/SkeletonGrid/SkeletonGrid";
-import { TournamentCard } from "./TournamentsCarousel/TournamentsGrid/TournamentCard/TournamentCard";
-import { getTournamentsByRole } from "./TournamentsCarousel/TournamentsGrid/utils/getTournamentsByRole";
+import { TournamentCard } from "./TournamentCard/TournamentCard"
+import { SkeletonGrid } from "./SkeletonGrid/SkeletonGrid";
+import { getTournamentsByRole } from "./utils/getTournamentsByRole";
+import { SimpleGrid } from "@chakra-ui/react";
 
-export function DevGrid(props: {role?: string, coordinates?: string, page?: number, perPage?: number}){
+export function TournamentsGrid(props: {role?: string, coordinates?: string, page?: number, perPage?: number}){
     const { loading, data } = getTournamentsByRole(props.role!, {coordinates: props.coordinates, page: props.page, perPage: props.perPage});
     return(
         <>
@@ -18,3 +18,4 @@ export function DevGrid(props: {role?: string, coordinates?: string, page?: numb
         </>
     )
 }
+

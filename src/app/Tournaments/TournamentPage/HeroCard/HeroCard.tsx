@@ -1,7 +1,7 @@
 import { FiCalendar, FiMapPin, FiUser } from "react-icons/fi";
 import { getGamesFromEvents } from "./utils/getGamesFromEvents";
-import { formatDate } from "../../TournamentsGrid/TournamentCard/DetailsContainer/utils/formatDate";
-import { formatLocation } from "../../TournamentsGrid/TournamentCard/DetailsContainer/utils/formatLocation";
+import { formatDate } from "../../TournamentsCarousel/TournamentsGrid/TournamentCard/DetailsContainer/utils/formatDate";
+import { formatLocation } from "../../TournamentsCarousel/TournamentsGrid/TournamentCard/DetailsContainer/utils/formatLocation";
 import { Card, Container, Heading, Box, Icon, Center, Divider, Wrap, WrapItem, Tag, Text, Image } from "@chakra-ui/react";
 
 export function HeroCard(props: {tournament: any}) {
