@@ -1,15 +1,15 @@
 export function formatLocation(tournament: any){
-    let location = ''
+	let location = '';
     
-    if(tournament.isOnline){
-        location = 'Online'
-    } else {
-        if(!tournament?.city){
-            location =  tournament.addrState
-        } else {
-            location = tournament.city + ', ' + tournament.addrState
-        }
-    }
+	if(tournament.isOnline){
+		location = 'Online';
+	} else {
+		if(!tournament?.city){
+			location =  tournament.addrState;
+		} else {
+			location = tournament.city + ', ' + tournament.addrState;
+		}
+	}
 
-    return location;
+	return location;
 }

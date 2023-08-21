@@ -6,7 +6,7 @@ import { TournamentsCarousel } from "../Tournaments/TournamentsCarousel/Tourname
 
 export function Home(){
 
-    const { countryCode, coordinates } = useGeo();
+	const { countryCode, coordinates } = useGeo();
 
     const { user } = useAuth();
 

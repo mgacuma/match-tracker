@@ -8,26 +8,26 @@ import { Box, Container, Image } from '@chakra-ui/react';
 import { filterBannerImage } from './utils/filterBannerImage';
 
 export function TournamentPage() {
-    const { tournamentId }= useParams();
+	const { tournamentId }= useParams();
 
-    const { loading, error, data } = useQuery(GET_TOURNAMENT, {
-        variables: {
-            tournamentId: tournamentId
-        }
-    });
+	const { loading, error, data } = useQuery(GET_TOURNAMENT, {
+		variables: {
+			tournamentId: tournamentId
+		}
+	});
 
-    let tournament;
-    if(data){
-        tournament = data.tournament;
-    }
+	let tournament;
+	if(data){
+		tournament = data.tournament;
+	}
     
-    const image = filterBannerImage(tournament?.images) ;
+	const image = filterBannerImage(tournament?.images) ;
     
-    return (
-        <>
-        { loading && <SkeletonPage /> }
+	return (
+		<>
+			{ loading && <SkeletonPage /> }
 
-        { data && 
+			{ data && 
             <Box>
                 {image && <Image id='banner' src={image.url} h='380px' w='100vw' objectFit='cover' fallback={<></>}/>}
                 <Container maxW='980px' mt={image?.url ? '-190px' : '72px'}>
@@ -37,7 +37,7 @@ export function TournamentPage() {
                     </Box>
                 </Container>    
             </Box>
-        }
-        </>
-    )
+			}
+		</>
+	);
 }

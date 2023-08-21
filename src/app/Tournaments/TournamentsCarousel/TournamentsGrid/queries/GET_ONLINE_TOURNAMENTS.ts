@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client';
 
 export const GET_ONLINE_TOURNAMENTS = gql`
     query GetOnlineTournaments($page: Int, $perPage: Int) {
@@ -26,4 +26,4 @@ export const GET_ONLINE_TOURNAMENTS = gql`
             }
         }
     }
-`
+`;
