@@ -1,0 +1,21 @@
+.slick-dots.slick-thumb li.slick-active {
+  background-color: #EDF2F7;
+  width: 32px;
+  height: 32px;
+  border-radius: 100%;
+  text-align: center;
+}
+
+.slick-dots.slick-thumb li.slick-active div {
+  width: 32px;
+  height: 32px;
+}
+
+.slick-dots.slick-thumb li.slick-active p{
+  color: black;
+}
+
+.slick-dots.slick-thumb {
+  position: relative;
+  top: 0px;
+}
