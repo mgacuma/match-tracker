@@ -1,8 +1,8 @@
 import { useQuery } from "@apollo/client";
-import { FEATURED_PAGE_INFO } from "../queries/FEATURED_PAGE_INFO";
-import { UPCOMING_PAGE_INFO } from "../queries/UPCOMING_PAGE_INFO";
-import { LOCAL_PAGE_INFO } from "../queries/LOCALS_PAGE_INFO";
-import { ONLINE_PAGE_INFO } from "../queries/ONLINE_PAGE_INFO";
+import { FEATURED_PAGE_INFO } from "./queries/FEATURED_PAGE_INFO";
+import { UPCOMING_PAGE_INFO } from "./queries/UPCOMING_PAGE_INFO";
+import { LOCAL_PAGE_INFO } from "./queries/LOCALS_PAGE_INFO";
+import { ONLINE_PAGE_INFO } from "./queries/ONLINE_PAGE_INFO";
 
 export function getTournamentPageInfo(role: string, variables: { coordinates?: string, perPage?: number, page?: number }){
     let heading: string = '';

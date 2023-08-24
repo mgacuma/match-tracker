@@ -3,16 +3,30 @@ import { Box, Container, Heading, IconButton, Text } from '@chakra-ui/react';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import './styles/styles.css'
+import './styles.css'
 import { SkeletonGrid } from './TournamentsGrid/SkeletonGrid/SkeletonGrid';
+import { DevGrid } from './devGrid';
+import { getTournamentsByRole } from './TournamentsGrid/utils/getTournamentsByRole';
 import { useEffect, useRef, useState } from 'react';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
-import { getTournamentPageInfo } from './utils/getTournamentPageInfo';
-import { TournamentsGrid } from './TournamentsGrid/TournamentsGrid';
+import { getTournamentPageInfo } from './TournamentsGrid/utils/getTournamentPageInfo';
 
-export function TournamentsCarousel(props: { coordinates: string, role: string }){
-    
-    const SLIDER_CONFIG = {
+export function TournamentCarousel(props: { coordinates: string, role: string }){
+
+    const [pages, setPages] = useState(0);
+
+    const { loading, data, heading } = getTournamentsByRole(props.role, {page: 1, perPage: 9, coordinates: props.coordinates});
+
+    const slider = useRef(null);
+
+    useEffect(() => {
+        if (data) {
+          setPages(data.tournaments?.pageInfo?.totalPages);
+        }
+        console.log(data)
+      }, [data]);
+
+    const settings = {
         customPaging: CustomPage,
         dots: true,
         dotsClass: "slick-dots slick-thumb",
@@ -24,18 +38,7 @@ export function TournamentsCarousel(props: { coordinates: string, role: string }
         slidesToScroll: 1,
         lazyLoad: 'progressive',
     };
-
-    const [pages, setPages] = useState(0);
-    const slider = useRef(null);
-
-    const { loading, data, heading } = getTournamentPageInfo(props.role, {page: 1, perPage: 9, coordinates: props.coordinates});
-
-    useEffect(() => {
-        if (data) {
-          setPages(data.tournaments?.pageInfo?.totalPages);
-        }
-    }, [data]);
-
+    
     function CustomPage(index: number){
         return(
             <Box boxSize='20px' display='flex' justifyContent='center' textAlign='center' alignItems='center'>
@@ -45,14 +48,14 @@ export function TournamentsCarousel(props: { coordinates: string, role: string }
     }
 
     return(
-        <Container background='white' maxW='container.xl' mx={{sm: '20px', lg: '42px', xl: 'auto'}} borderRadius='20px' p='32px'>
+        <Container background='white' maxW='container.xl' mx={{sm: '20px', lg: '42px', xl: 'auto'}} borderRadius='20px' p='30px' pb='48px'>
             { loading && <SkeletonGrid />}
             { data && 
                 <>
                     <Heading size='xl' color='black'>{heading}</Heading>
                     <Box style={{ position: "relative", marginTop: "20px" }} >
-                        <Slider ref={slider} {...SLIDER_CONFIG}  >
-                            { data && Array(pages).fill(0).map((e,i) => <TournamentsGrid {...props} perPage={9} page={i + 1} />) }
+                        <Slider ref={slider} {...settings}  >
+                            { data && Array(pages).fill(0).map((e,i) => <DevGrid {...props} perPage={9} page={i + 1} />) }
                         </Slider>
                         { data.tournaments?.pageInfo?.totalPages > 1 && 
                             <Box top='50%' transform='translateY(-50%)' pointerEvents='none' sx={{position: 'absolute', width: '100%'}}>
