@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { Box, VStack, Heading, Container } from "@chakra-ui/react";
 import { TournamentsGrid } from "../Tournaments/TournamentsGrid/TournamentsGrid";
 import { useGeo } from "./hooks/useGeo";
@@ -9,11 +10,17 @@ import { Box, VStack } from '@chakra-ui/react';
 import { TournamentsGrid } from '../Tournaments/TournamentsGrid/TournamentsGrid';
 import { useGeo } from './hooks/useGeo';
 >>>>>>> parent of a5ff45ac (Merge pull request #9 from mgacuma/feature-paginate-tournaments)
+=======
+import { Box, VStack } from '@chakra-ui/react';
+import { TournamentsGrid } from '../Tournaments/TournamentsGrid/TournamentsGrid';
+import { useGeo } from './hooks/useGeo';
+>>>>>>> parent of a5ff45ac (Merge pull request #9 from mgacuma/feature-paginate-tournaments)
 
 export function Home(){
 
 	const { countryCode, coordinates } = useGeo();
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     const { user } = useAuth();
 
@@ -29,6 +36,8 @@ export function Home(){
             </Box>
     )
 =======
+=======
+>>>>>>> parent of a5ff45ac (Merge pull request #9 from mgacuma/feature-paginate-tournaments)
 	return(
 		<Box background=''>
 			<VStack spacing='64px' p='64px'>
@@ -39,5 +48,8 @@ export function Home(){
 			</VStack>
 		</Box>
 	);
+<<<<<<< HEAD
+>>>>>>> parent of a5ff45ac (Merge pull request #9 from mgacuma/feature-paginate-tournaments)
+=======
 >>>>>>> parent of a5ff45ac (Merge pull request #9 from mgacuma/feature-paginate-tournaments)
 }

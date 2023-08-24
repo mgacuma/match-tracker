@@ -1,15 +1,21 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { FiCalendar, FiMapPin, FiUser } from "react-icons/fi";
 import { getGamesFromEvents } from "./utils/getGamesFromEvents";
 import { formatDate } from "../../TournamentsGrid/TournamentCard/DetailsContainer/utils/formatDate";
 import { formatLocation } from "../../TournamentsGrid/TournamentCard/DetailsContainer/utils/formatLocation";
 import { Card, Container, Heading, Box, Icon, Center, Divider, Wrap, WrapItem, Tag, Text, Image } from "@chakra-ui/react";
 =======
+=======
+>>>>>>> parent of a5ff45ac (Merge pull request #9 from mgacuma/feature-paginate-tournaments)
 import { FiCalendar, FiMapPin, FiUser } from 'react-icons/fi';
 import { getGamesFromEvents } from './utils/getGamesFromEvents';
 import { formatDate } from '../../TournamentsGrid/TournamentCard/DetailsContainer/utils/formatDate';
 import { formatLocation } from '../../TournamentsGrid/TournamentCard/DetailsContainer/utils/formatLocation';
 import { Card, Container, Heading, Box, Icon, Center, Divider, Wrap, WrapItem, Tag, Text, Image } from '@chakra-ui/react';
+<<<<<<< HEAD
+>>>>>>> parent of a5ff45ac (Merge pull request #9 from mgacuma/feature-paginate-tournaments)
+=======
 >>>>>>> parent of a5ff45ac (Merge pull request #9 from mgacuma/feature-paginate-tournaments)
 
 export function HeroCard(props: {tournament: any}) {

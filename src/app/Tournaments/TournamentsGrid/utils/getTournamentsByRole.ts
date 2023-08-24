@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { useQuery } from "@apollo/client";
 import { GET_FEATURED_TOURNAMENTS } from "../queries/GET_FEATURED_TOURNAMENTS";
 import { GET_UPCOMING_TOURNAMENTS } from "../queries/GET_UPCOMING_TOURNAMENTS";
@@ -58,6 +59,8 @@ export function getTournamentsByRole(role: string, variables: { coordinates?: st
 
     return { heading, loading, data }
 =======
+=======
+>>>>>>> parent of a5ff45ac (Merge pull request #9 from mgacuma/feature-paginate-tournaments)
 import { useQuery } from '@apollo/client';
 import { GET_FEATURED_TOURNAMENTS } from '../queries/GET_FEATURED_TOURNAMENTS';
 import { GET_UPCOMING_TOURNAMENTS } from '../queries/GET_UPCOMING_TOURNAMENTS';
@@ -100,5 +103,8 @@ export function getTournamentsByRole(role: string, coordinates?: string){
 	}
 
 	return { heading, loading, data };
+<<<<<<< HEAD
+>>>>>>> parent of a5ff45ac (Merge pull request #9 from mgacuma/feature-paginate-tournaments)
+=======
 >>>>>>> parent of a5ff45ac (Merge pull request #9 from mgacuma/feature-paginate-tournaments)
 }

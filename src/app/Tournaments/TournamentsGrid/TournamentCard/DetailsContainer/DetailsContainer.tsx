@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { Container, Heading, Box, Icon, Image, Text, Avatar } from "@chakra-ui/react";
 import { FiCalendar, FiMapPin, FiUser } from "react-icons/fi";
 import { filterProfileImage } from "./utils/filterProfileImage";
@@ -32,6 +33,8 @@ export function DetailsContainer(props: { tournament: any }){
         </Container>
     )
 =======
+=======
+>>>>>>> parent of a5ff45ac (Merge pull request #9 from mgacuma/feature-paginate-tournaments)
 import { Container, Heading, Box, Icon, Image, Text } from '@chakra-ui/react';
 import { FiCalendar, FiMapPin, FiUser } from 'react-icons/fi';
 import { filterProfileImage } from './utils/filterProfileImage';
@@ -64,5 +67,8 @@ export function DetailsContainer(props: { tournament: any }){
 			</Container>
 		</Container>
 	);
+<<<<<<< HEAD
+>>>>>>> parent of a5ff45ac (Merge pull request #9 from mgacuma/feature-paginate-tournaments)
+=======
 >>>>>>> parent of a5ff45ac (Merge pull request #9 from mgacuma/feature-paginate-tournaments)
 }

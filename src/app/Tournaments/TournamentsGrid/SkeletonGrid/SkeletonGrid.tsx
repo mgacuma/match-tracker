@@ -3,6 +3,7 @@ import { SkeletonCard } from './SkeletonCard/SkeletonCard';
 
 export function SkeletonGrid(){
 <<<<<<< HEAD
+<<<<<<< HEAD
     return(
         <>
             {/* <Skeleton height='48px' mb='20px' width='440px' /> */}
@@ -17,6 +18,8 @@ export function SkeletonGrid(){
         </>
     )
 =======
+=======
+>>>>>>> parent of a5ff45ac (Merge pull request #9 from mgacuma/feature-paginate-tournaments)
 	return(
 		<>
 			<Skeleton height='48px' mb='20px' width='440px' />
@@ -30,5 +33,8 @@ export function SkeletonGrid(){
 			</SimpleGrid>
 		</>
 	);
+<<<<<<< HEAD
+>>>>>>> parent of a5ff45ac (Merge pull request #9 from mgacuma/feature-paginate-tournaments)
+=======
 >>>>>>> parent of a5ff45ac (Merge pull request #9 from mgacuma/feature-paginate-tournaments)
 }
