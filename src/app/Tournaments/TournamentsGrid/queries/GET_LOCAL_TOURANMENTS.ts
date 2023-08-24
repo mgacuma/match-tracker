@@ -1,14 +1,9 @@
 import { gql } from '@apollo/client';
 
 export const GET_LOCAL_TOURNAMENTS = gql`
-    query GetLocalTournaments($coordinates: String, $page: Int, $perPage: Int) {
-        tournaments(query: { perPage: $perPage, page: $page, filter: {upcoming: true, location: {distanceFrom: $coordinates, distance: "50mi"}}}) {
-            pageInfo {
-                total
-                totalPages
-                page
-                perPage
-            } nodes {
+    query GetLocalTournaments($coordinates: String) {
+        tournaments(query: {filter: {upcoming: true, location: {distanceFrom: $coordinates, distance: "50mi"}}}) {
+            nodes {
                 id
                 addrState
                 city

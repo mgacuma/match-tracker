@@ -29,13 +29,13 @@ export function TournamentPage() {
 
 			{ data && 
             <Box>
-                {image && <Image id='banner' src={image.url} h='380px' w='100vw' objectFit='cover' fallback={<></>}/>}
-                <Container maxW='980px' mt={image?.url ? '-190px' : '72px'}>
-                    <Box>
-                        <HeroCard tournament={tournament} />
-                        {tournament.events?.map((event: any) => <EventCard event={event} />)}
-                    </Box>
-                </Container>    
+            	{image && <Image src={image.url} h='380px' w='100vw' objectFit='cover'/>}
+            	<Container maxW='980px' mt={image?.url ? '-190px' : '72px'}>
+            		<Box>
+            			<HeroCard tournament={tournament} />
+            			{tournament.events?.map((event: any) => <EventCard event={event} />)}
+            		</Box>
+            	</Container>    
             </Box>
 			}
 		</>
