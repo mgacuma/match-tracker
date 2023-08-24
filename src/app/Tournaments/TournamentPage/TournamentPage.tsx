@@ -6,6 +6,7 @@ import { SkeletonPage } from './SkeletonPage/SkeletonPage';
 import { HeroCard } from './HeroCard/HeroCard';
 import { Box, Container, Image } from '@chakra-ui/react';
 import { filterBannerImage } from './utils/filterBannerImage';
+import { Event, Maybe, Tournament } from '../../../__generated__/graphql';
 
 export function TournamentPage() {
 	const { tournamentId }= useParams();
@@ -16,12 +17,12 @@ export function TournamentPage() {
 		}
 	});
 
-	let tournament;
+	let tournament: Tournament = {};
 	if(data){
 		tournament = data.tournament;
 	}
     
-	const image = filterBannerImage(tournament?.images) ;
+	const image = filterBannerImage(tournament.images) ;
     
 	return (
 		<>
@@ -29,11 +30,11 @@ export function TournamentPage() {
 
 			{ data && 
             <Box>
-            	{image && <Image src={image.url} h='380px' w='100vw' objectFit='cover'/>}
+            	{image && <Image id='banner' src={image.url} h='380px' w='100vw' objectFit='cover' fallback={<></>}/>}
             	<Container maxW='980px' mt={image?.url ? '-190px' : '72px'}>
             		<Box>
             			<HeroCard tournament={tournament} />
-            			{tournament.events?.map((event: any) => <EventCard event={event} />)}
+            			{tournament.events!.map((event: Maybe<Event>) => <EventCard key={event!.name} event={event} />)}
             		</Box>
             	</Container>    
             </Box>

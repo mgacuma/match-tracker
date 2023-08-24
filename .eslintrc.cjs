@@ -33,12 +33,12 @@ module.exports = {
 	],
 	'rules': {
 		'indent': [
-			'error',
+			'warn',
 			'tab'
 		],
 		'linebreak-style': [
 			'error',
-			'windows'
+			'unix'
 		],
 		'quotes': [
 			'error',

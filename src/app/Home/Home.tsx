@@ -4,7 +4,7 @@ import { Box, VStack, Heading, Container } from "@chakra-ui/react";
 import { TournamentsGrid } from "../Tournaments/TournamentsGrid/TournamentsGrid";
 import { useGeo } from "./hooks/useGeo";
 import { useAuth } from "../Auth/AuthProvider/AuthProvider";
-import { TournamentCarousel } from "../Tournaments/TournamentCarousel";
+import { TournamentCarousel } from "../Tournaments/TournamentsCarousel/TournamentCarousel";
 =======
 import { Box, VStack } from '@chakra-ui/react';
 import { TournamentsGrid } from '../Tournaments/TournamentsGrid/TournamentsGrid';
