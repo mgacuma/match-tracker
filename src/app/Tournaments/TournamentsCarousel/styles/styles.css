@@ -16,5 +16,7 @@
 }
 
 .slick-dots.slick-thumb {
-  bottom: -32px;
+  position: relative;
+  display: block;
+  top: 0px;
 }
