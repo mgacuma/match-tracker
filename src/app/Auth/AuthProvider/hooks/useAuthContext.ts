@@ -37,8 +37,8 @@ export const useAuthContext = (): IAuthContext => {
 			setUser(result);
 			setIsAuthenticated(true);
 			return { success: true };
-		} catch (error: any) {
-			console.log(error);
+		} catch (err) {
+			console.log(err);
 			return {
 				success: false,
 				type: error.name,
@@ -48,16 +48,8 @@ export const useAuthContext = (): IAuthContext => {
 	};
 
 	const signUp = async (username: string, password: string, attributes?: object) => {
-		try{
-			const result = await Auth.signUp({username, password, attributes});
-			return { success: true };
-		} catch (error: any) {
-			return {
-				success: false,
-				type: error.name,
-				message: error.message,
-			};
-		}
+		await Auth.signUp({username, password, attributes});
+		return { success: true };
 	};
 
 	const signOut = async () => {

@@ -1,4 +1,4 @@
-import { Box, Button, Card, Checkbox, Container, Divider, FormControl, FormLabel, HStack, Heading, IconButton, Input, InputGroup, InputRightElement, Link, Show, Stack, Text, useDisclosure } from '@chakra-ui/react';
+import { Box, Button, Card, Checkbox, Container, FormControl, FormLabel, HStack, Heading, IconButton, Input, InputGroup, InputRightElement, Link, Show, Stack, Text, useDisclosure } from '@chakra-ui/react';
 import { Link as RLink, useSearchParams } from 'react-router-dom';
 import { useState } from 'react';
 import { HiEyeOff, HiEye } from 'react-icons/hi';
@@ -78,7 +78,6 @@ export function LoginPage(){
 						</Stack>
 					</Stack>
 					<Box
-						py={{ base: '0', sm: '8' }}
 						px={{ base: '4', sm: '10' }}
 						bg={{ base: 'transparent', sm: 'bg.surface' }}
 						boxShadow={{ base: 'none', sm: 'md' }}
