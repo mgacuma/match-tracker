@@ -23,7 +23,7 @@ export function TournamentsCarousel(props: { coordinates: string, role: string }
 		speed: 500,
 		slidesToShow: 1,
 		slidesToScroll: 1,
-		lazyLoad: 'progressive' as LazyLoadTypes,
+		lazyLoad: 'ondemand' as LazyLoadTypes,
 	};
 
 	const [pages, setPages] = useState(0);
