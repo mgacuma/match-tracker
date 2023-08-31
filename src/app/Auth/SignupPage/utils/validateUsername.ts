@@ -1,4 +1,4 @@
-import { SignUpInputsErrors } from '../models/signUpInputsErrors.type';
+import { SignUpInputsErrors } from '../models/SignUpInputs.type';
 
 export function validateUsername(
 	username: string, 
