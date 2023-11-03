@@ -25,11 +25,10 @@ export const useAuthContext = (): IAuthContext => {
 				setIsLoading(false);
 			})
 			.catch(() => {
-				console.log('ERR');
+				console.log('No Current Authed User');
 				setUser({});
 				setIsAuthenticated(false);
 				setIsLoading(false);
-				console.log(user, 'usss');
 			});
 	}, []);
 

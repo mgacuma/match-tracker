@@ -11,8 +11,8 @@ import { TournamentsGrid } from './TournamentsGrid/TournamentsGrid';
 import { getTournamentPageInfo } from './utils/getTournamentPageInfo';
 import { SkeletonGrid } from './TournamentsGrid/SkeletonGrid/SkeletonGrid';
 
-export function TournamentsCarousel(props: { coordinates: string, role: string }){
-    
+export function TournamentsCarousel(props: { coordinates?: string, role: string, q?: string }){
+
 	const SLIDER_CONFIG = {
 		customPaging: CustomPage,
 		dots: true,
@@ -29,7 +29,7 @@ export function TournamentsCarousel(props: { coordinates: string, role: string }
 	const [pages, setPages] = useState(0);
 	const slider = useRef<Slider>(null);
 
-	const { loading, data, heading } = getTournamentPageInfo(props.role, {page: 1, perPage: 9, coordinates: props.coordinates});
+	const { loading, data, heading } = getTournamentPageInfo(props.role, {page: 1, perPage: 9, coordinates: props.coordinates, q: props.q});
 
 	useEffect(() => {
 		if (data) {
@@ -51,10 +51,13 @@ export function TournamentsCarousel(props: { coordinates: string, role: string }
 			{ data && 
                 <>
                 	<Heading size='xl' color='black'>{heading}</Heading>
-                	<Box style={{ position: 'relative', marginTop: '20px' }} >
-                		<Slider ref={slider} {...SLIDER_CONFIG}  >
-                			{ data && Array(pages).fill(0).map((e,i) => <TournamentsGrid key={i+1} {...props} perPage={9} page={i + 1} />) }
-                		</Slider>
+                	<Box style={{ position: 'relative', marginTop: '20px' }}>
+                		{ data.tournaments?.pageInfo?.total === 0 && <Heading color='black' size='lg' textAlign={'center'} py='24px'>No Tournaments Found</Heading>}
+                		{ data.tournaments?.pageInfo?.total !== 0 && 
+							<Slider ref={slider} {...SLIDER_CONFIG}>
+								{ data && Array(pages).fill(0).map((e,i) => <TournamentsGrid key={i+1} {...props} perPage={9} page={i + 1} />) }
+							</Slider>
+                		}
                 		{ data.tournaments!.pageInfo!.totalPages! > 1 && 
                         <Box top='50%' transform='translateY(-50%)' pointerEvents='none' sx={{position: 'absolute', width: '100%'}}>
                         	<IconButton zIndex={99} pointerEvents='all' borderRadius='100%' icon={<FiChevronLeft color='black'/>} onClick={() => slider?.current?.slickPrev()} aria-label='' />

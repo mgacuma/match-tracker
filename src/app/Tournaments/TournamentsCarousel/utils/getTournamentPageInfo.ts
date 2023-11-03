@@ -4,8 +4,9 @@ import { LOCAL_PAGE_INFO } from '../queries/LOCALS_PAGE_INFO';
 import { ONLINE_PAGE_INFO } from '../queries/ONLINE_PAGE_INFO';
 import { Query } from '../../../../__generated__/graphql';
 import { FEATURED_PAGE_INFO } from '../queries/FEATURED_PAGE_INFO';
+import { SEARCH_TOURNAMENT } from '../../../Search/queries/SEARCH_TOURNAMENT';
 
-export function getTournamentPageInfo(role: string, variables: { coordinates?: string, perPage?: number, page?: number }){
+export function getTournamentPageInfo(role: string, variables: { coordinates?: string, perPage?: number, page?: number, q?: string }){
 	let heading: string = '';
 	let loading = false;
 	let data: Query = {};
@@ -52,6 +53,18 @@ export function getTournamentPageInfo(role: string, variables: { coordinates?: s
 			}
 		});
 		heading = 'Online Tournaments';
+		loading = query.loading;
+		data = query.data;
+	}
+	if(role === 'search'){
+		const query = useQuery(SEARCH_TOURNAMENT, {
+			variables: {
+				page: variables.page,
+				perPage: variables.perPage,
+				q: variables.q
+			}
+		});
+		heading = 'Search Results for "' + variables.q + '"';
 		loading = query.loading;
 		data = query.data;
 	}

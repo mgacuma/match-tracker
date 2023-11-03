@@ -5,7 +5,6 @@ import { useAuth } from '../Auth/AuthProvider/AuthProvider';
 import { TournamentsCarousel } from '../Tournaments/TournamentsCarousel/TournamentCarousel';
 
 export function Home(){
-
 	const { countryCode, coordinates } = useGeo();
 
 	const { user } = useAuth();

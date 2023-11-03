@@ -4,8 +4,8 @@ import { getTournamentsByRole } from './utils/getTournamentsByRole';
 import { SimpleGrid } from '@chakra-ui/react';
 import { Maybe, Tournament } from '../../../../__generated__/graphql';
 
-export function TournamentsGrid(props: {role?: string, coordinates?: string, page?: number, perPage?: number}){
-	const { loading, data } = getTournamentsByRole(props.role!, {coordinates: props.coordinates, page: props.page, perPage: props.perPage});
+export function TournamentsGrid(props: {role?: string, coordinates?: string, page?: number, perPage?: number, q?: string}){
+	const { loading, data } = getTournamentsByRole(props.role!, {coordinates: props.coordinates, page: props.page, perPage: props.perPage, q: props.q});
 	return(
 		<>
 			{ loading && <SkeletonGrid /> }

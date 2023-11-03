@@ -6,6 +6,7 @@ import { Home } from '../Home/Home';
 import { EventCard } from '../Tournaments/TournamentPage/EventCard/EventCard';
 import { PhaseItem } from '../Tournaments/TournamentPage/EventCard/PhaseItem/PhaseItem';
 import { TournamentPage } from '../Tournaments/TournamentPage/TournamentPage';
+import { SearchPage } from '../Search/SearchPage';
 
 export const router = createBrowserRouter([
 	{ element: <Layout />,
@@ -33,6 +34,10 @@ export const router = createBrowserRouter([
 			{
 				path: 'signup',
 				element: <SignupPage />,
+			},
+			{
+				path: 'search',
+				element: <SearchPage />
 			}
 		]
 	}
