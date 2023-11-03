@@ -10,7 +10,7 @@ Amplify.configure({
 		path: '/match-tracker',
 		expires: 365,
 		sameSite: 'strict',
-		secure: true,
+		secure: import.meta.env.VITE_ENV === 'prod',
 	},
 	authenticationFlowType: 'USER_SRP_AUTH',
 });

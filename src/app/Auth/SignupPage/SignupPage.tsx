@@ -1,95 +1,228 @@
-import { Container, Card, Stack, Heading, Box, FormControl, FormLabel, Input, HStack, Checkbox, Button, Text, Link, InputGroup, IconButton, InputRightElement, useDisclosure, useMergeRefs } from '@chakra-ui/react';
+import { Container, Card, Stack, Heading, Box, FormControl, FormLabel, Input, Button, Text, Link, InputGroup, IconButton, InputRightElement, useDisclosure, Spinner, Tooltip } from '@chakra-ui/react';
 import { Link as RLink } from 'react-router-dom';
 import { useState } from 'react';
 import { HiEyeOff, HiEye } from 'react-icons/hi';
 import { useAuth } from '../AuthProvider/AuthProvider';
+import { SignUpInputs, SignUpInputsErrors } from './models/SignUpInputs.type';
+import { validateFirstName } from './utils/validateFirstName';
+import { validateLastName } from './utils/validateLastName';
+import { validateUsername } from './utils/validateUsername';
+import { validateEmail } from './utils/validateEmail';
+import { validatePassword } from './utils/validatePassword';
 
 export function SignupPage(){
-	const [ email, setEmail ] = useState('');
-	const [ username, setUsername ] = useState('');
-	const [ name, setName ] = useState('');
-	const [ password, setPassword ] = useState('');
 
-	const { signUp, isAuthenticated } = useAuth();
+	const [ inputs, setInputs ] = useState<SignUpInputs>({
+		username: '',
+		email: '',
+		firstName: '',
+		lastName: '',
+		password: ''
+	});
 
-    
+	const [ inputErrors, setInputErrors ] = useState<SignUpInputsErrors>({
+		username: false,
+		email: false,
+		firstName: false,
+		lastName: false,
+		password: false
+	});
+
+	const [ submitting, setSubmitting ] = useState(false);
+
+	const { signUp } = useAuth();
+
 	function onSubmit(event: React.FormEvent<HTMLFormElement>){
 		event.preventDefault();
 
-		signUp(username, password, {email, name})
-			.then(result => {
-				window.location.assign('/match-tracker/login?signUp=true');
-			})
-			.catch(err => {
-				console.error(err);
-			});
+		if(Object.values(inputErrors).every(item => item === false)){	
+			
+			setSubmitting(true);
+			signUp(inputs.username, inputs.password, {email: inputs.email, name: inputs.firstName + ' ' + inputs.lastName})
+				.then(result => {
+					setSubmitting(false);
+					window.location.assign('/match-tracker/login?signUp=true');
+				})
+				.catch(err => {
+					setSubmitting(false);		
+					console.error(err);
+				});
+
+		}
 	}
 
 	const { isOpen, onToggle } = useDisclosure();
   
 	const onClickReveal = () => {
 		onToggle();
-		window.location.assign('/match-tracker/login');
 	};
     
 	return(
-		<Container maxW="lg" py={{ base: '12', md: '24' }} minH='85vh' px={{ base: '0', sm: '8' }}>
-			<Card borderRadius='12px' pt='32px'>
+		<Container maxW="lg" py={{ base: '8', md: '12' }} minH='85vh' px={{ base: '0', sm: '8' }}>
+			<Card borderRadius='12px' p='32px'>
 				<Stack spacing="8">
 					<Stack spacing="6">
 						<Stack spacing={{ base: '2', md: '3' }} textAlign="center">
 							<Heading size={{ base: 'xs', md: 'sm' }}>Create an account</Heading>
 							<Text color="fg.muted">
-                                Already have an account? <Link as={RLink} to='/login'>Log In</Link>
+									Already have an account? <Link as={RLink} to='/login'>Log In</Link>
 							</Text>
 						</Stack>
 					</Stack>
 					<Box
-						py={{ base: '0', sm: '8' }}
 						px={{ base: '4', sm: '10' }}
-						bg={{ base: 'transparent', sm: 'bg.surface' }}
-						boxShadow={{ base: 'none', sm: 'md' }}
-						borderRadius={{ base: 'none', sm: 'xl' }}
 					>
 						<form onSubmit={onSubmit}>
 							<Stack spacing="6">
 								<Stack spacing="5">
 									<FormControl>
-										<FormLabel htmlFor="name">Username</FormLabel>
-										<Input id="name" type="text" isRequired onChange={(event) => setUsername(event.target.value)} />
+										<FormLabel htmlFor="firstName">First Name</FormLabel>
+										<Input 
+											id="firstName" 
+											type="text" 
+											name='firstName'
+											isRequired
+											isInvalid={inputErrors.firstName}
+											errorBorderColor='crimson'
+											value={inputs.firstName} 
+											onChange={(event) => setInputs({...inputs, firstName: event.target.value})}
+											onBlur={(event) => {validateFirstName(event.target.value, inputErrors, setInputErrors);}}
+										/>
 									</FormControl>
 									<FormControl>
-										<FormLabel htmlFor="name">Name</FormLabel>
-										<Input id="name" type="text" isRequired onChange={(event) => setName(event.target.value)} />
+										<FormLabel htmlFor="lastName">Last Name</FormLabel>
+										<Input 
+											id="lastName" 
+											type="text" 
+											name='lastName'
+											isRequired
+											isInvalid={inputErrors.lastName}
+											errorBorderColor='crimson'
+											value={inputs.lastName} 
+											onChange={(event) => setInputs({...inputs, lastName: event.target.value})}
+											onBlur={(event) => {validateLastName(event.target.value, inputErrors, setInputErrors);}}
+										/>									
 									</FormControl>
+									{!inputErrors.username &&
+										<FormControl>
+											<FormLabel htmlFor="username">Username</FormLabel>
+											<Input 
+												id="username" 
+												type="text"
+												name='username' 
+												isRequired
+												isInvalid={inputErrors.username}
+												errorBorderColor='crimson'
+												value={inputs.username} 
+												onChange={(event) => setInputs({...inputs, username: event.target.value})}
+												onBlur={(event) => {validateUsername(event.target.value, inputErrors, setInputErrors);}}
+											/>
+										</FormControl>
+									}
+									{inputErrors.username && 
+										<Tooltip label='Username must be at least 8 characters long.'>
+											<FormControl>
+												<FormLabel htmlFor="username">Username</FormLabel>
+												<Input 
+													id="username" 
+													type="text"
+													name='username' 
+													isRequired
+													isInvalid={inputErrors.username}
+													errorBorderColor='crimson'
+													value={inputs.username} 
+													onChange={(event) => setInputs({...inputs, username: event.target.value})}
+													onBlur={(event) => {validateUsername(event.target.value, inputErrors, setInputErrors);}}
+												/>
+											</FormControl>
+										</Tooltip>
+									}
+
 									<FormControl>
 										<FormLabel htmlFor="email">Email</FormLabel>
-										<Input id="email" type="email" isRequired onChange={(event) => setEmail(event.target.value)}/>
+										<Input 
+											id="email" 
+											name='email'
+											type="email"
+											autoComplete="current-email"
+											isRequired 
+											isInvalid={inputErrors.email}
+											errorBorderColor='crimson'
+											value={inputs.email} 
+											onChange={(event) => setInputs({...inputs, email: event.target.value})}
+											onBlur={(event) => {validateEmail(event.target.value, inputErrors, setInputErrors);}}
+										/>
 									</FormControl>
-									<FormControl>
-										<FormLabel htmlFor="password">Password</FormLabel>
-										<InputGroup>
-											<Input
-												id="password"
-												name="password"
-												type={isOpen ? 'text' : 'password'}
-												autoComplete="current-password"
-												onChange={(event) => setPassword((event.target.value))}
-												isRequired
-											/>
-											<InputRightElement>
-												<IconButton
-													variant="text"
-													aria-label={isOpen ? 'Mask password' : 'Reveal password'}
-													icon={isOpen ? <HiEyeOff /> : <HiEye />}
-													onClick={onClickReveal}
+									{!inputErrors.password && 
+										<FormControl>
+											<FormLabel htmlFor="password">Password</FormLabel>
+											<InputGroup>
+												<Input
+													id="password"
+													name="password"
+													type={isOpen ? 'text' : 'password'}
+													autoComplete="current-password"
+													isRequired
+													isInvalid={inputErrors.password}
+													errorBorderColor='crimson'
+													value={inputs.password} 
+													onChange={(event) => setInputs({...inputs, password: event.target.value})} 
+													onBlur={(event) => {validatePassword(event.target.value, inputErrors, setInputErrors);}}
 												/>
-											</InputRightElement>
-										</InputGroup>
-									</FormControl>
+												<InputRightElement>
+													<IconButton
+														variant="text"
+														type='button'
+														aria-label={isOpen ? 'Mask password' : 'Reveal password'}
+														icon={isOpen ? <HiEyeOff /> : <HiEye />}
+														onClick={onClickReveal}
+													/>
+												</InputRightElement>
+											</InputGroup>
+										</FormControl>
+									}
+									{inputErrors.password &&
+										<Tooltip label='Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character.'>
+											<FormControl>
+												<FormLabel htmlFor="password">Password</FormLabel>
+												<InputGroup>
+													<Input
+														id="password"
+														name="password"
+														type={isOpen ? 'text' : 'password'}
+														autoComplete="current-password"
+														isRequired
+														isInvalid={inputErrors.password}
+														errorBorderColor='crimson'
+														value={inputs.password} 
+														onChange={(event) => setInputs({...inputs, password: event.target.value})} 
+														onBlur={(event) => {validatePassword(event.target.value, inputErrors, setInputErrors);}}
+													/>
+													<InputRightElement>
+														<IconButton
+															variant="text"
+															type='button'
+															aria-label={isOpen ? 'Mask password' : 'Reveal password'}
+															icon={isOpen ? <HiEyeOff /> : <HiEye />}
+															onClick={onClickReveal}
+														/>
+													</InputRightElement>
+												</InputGroup>
+											</FormControl>
+										</Tooltip>
+									}
 								</Stack>
 								<Stack spacing="6">
-									<Button type='submit' >Create Account</Button>
+									<Button 
+										isLoading={submitting}
+										colorScheme='blue'
+										spinner={
+											<Spinner />
+										} 
+										type='submit'
+									>
+										Create Account
+									</Button>
 								</Stack>
 							</Stack>
 						</form>

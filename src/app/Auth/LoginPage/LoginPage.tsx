@@ -1,60 +1,69 @@
-import { Box, Button, Card, Checkbox, Container, Divider, FormControl, FormLabel, HStack, Heading, IconButton, Input, InputGroup, InputRightElement, Link, Show, Stack, Text, useDisclosure } from '@chakra-ui/react';
+import { Box, Button, Card, Checkbox, Container, FormControl, FormLabel, HStack, Heading, IconButton, Input, InputGroup, InputRightElement, Link, Show, Spinner, Stack, Text, useDisclosure } from '@chakra-ui/react';
 import { Link as RLink, useSearchParams } from 'react-router-dom';
 import { useState } from 'react';
 import { HiEyeOff, HiEye } from 'react-icons/hi';
 import { useAuth } from '../AuthProvider/AuthProvider';
+import { LoginInputs, LoginInputsErrors } from './models/LoginInputs.type';
 
 export function LoginPage(){
+	
 	const { signIn, isAuthenticated } = useAuth();
     
 	if(isAuthenticated){
 		window.location.pathname = '/match-tracker/';
 	}
 
-	const [username, setUsername] = useState('');
-	const [password, setPassword] = useState('');
+	const [ inputs, setInputs ] = useState<LoginInputs>({username: '', password: ''});
 
-	const [invalidUsername, setInvalidUsername] = useState(false);
-	const [invalidPassword, setInvalidPassword] = useState(false);
+	const [ inputErrors, setInputErrors ] = useState<LoginInputsErrors>({username: false, password: false});
+
+	const [submitting, setSubmitting] = useState(false);
 
 	const [errorMessage, setErrorMessage] = useState('');
 
 	const [searchParams, setSearchParams] = useSearchParams();
 	const signUp = searchParams.get('signUp');
 
-	function onSubmit(e: React.FormEvent<HTMLButtonElement>){
+	function validateUsername(username: string, errors: LoginInputsErrors, setInputErrors: React.Dispatch<React.SetStateAction<LoginInputsErrors>>){
+		if(!inputs.username){
+			setInputErrors({...inputErrors, username: true});
+		} else {
+			setInputErrors({...inputErrors, username: false});
+		}
+	}
+
+	function validatePassword(
+		password: string, 
+		errors: LoginInputsErrors, 
+		setErrors: React.Dispatch<React.SetStateAction<LoginInputsErrors>>
+	){
+		if(!inputs.password){
+			setErrors({...errors, password: true});
+		} else {
+			setErrors({...errors, password: false});
+		}
+	}
+
+	function onSubmit(e: React.FormEvent<HTMLFormElement>){
 		e.preventDefault();
 
-		setSearchParams({});
+		setInputErrors({username: false, password: false});        
 
-		if(!username){
-			setInvalidUsername(true);
-			setErrorMessage('Username cannot be empty.');
-		} else {
-			setInvalidUsername(false);
-		}
-		if(!password){
-			setInvalidPassword(true);
-			setErrorMessage('Password cannot be empty.');
-		} else {
-			setInvalidPassword(false);
-		}
-		if(!username && !password){
-			setErrorMessage('Please enter credentials.');
-		}
-        
-		if(username && password){
-            
-			signIn(username, password)
+		if(inputs.username && inputs.password){
+			signIn(inputs.username, inputs.password)
 				.then((result) => {
-					if(result.success){
+					if(result && result.success){
 						window.location.pathname = '/match-tracker/';
-					} else {
-						setInvalidUsername(true);
-						setInvalidPassword(true);
-						setErrorMessage(result.message!);
 					}
+				}).catch((err) => {
+					console.log('ERROR FIRE');
+					setErrorMessage(err.message);
+					setInputErrors({username: true, password: true});
+					console.log(err.message);
 				});
+		} else {
+			setInputErrors({username: inputs.username ? false : true, password: inputs.password ? false : true});     
+			setErrorMessage('');
 		}
 	}
 
@@ -67,29 +76,34 @@ export function LoginPage(){
 
 	return(
 		<Container maxW="lg" py={{ base: '12', md: '24' }} minH='85vh' px={{ base: '0', sm: '8' }}>
-			<Card borderRadius='12px' pt='32px'>
+			<Card borderRadius='12px' p='32px'>
 				<Stack spacing="8">
 					<Stack spacing="6">
 						<Stack spacing={{ base: '2', md: '3' }} textAlign="center">
 							<Heading size={{ base: 'xs', md: 'sm' }}>Log in to your account</Heading>
-							<Text color="fg.muted">
-                    Don't have an account? <Link as={RLink} to='/signup'>Sign up</Link>
+							<Text color="fg.muted">Don't have an account? <Link as={RLink} to='/signup'>Sign up</Link>
 							</Text>
 						</Stack>
 					</Stack>
 					<Box
-						py={{ base: '0', sm: '8' }}
 						px={{ base: '4', sm: '10' }}
-						bg={{ base: 'transparent', sm: 'bg.surface' }}
-						boxShadow={{ base: 'none', sm: 'md' }}
-						borderRadius={{ base: 'none', sm: 'xl' }}
 					>
 						<Stack spacing="6">
-							<form className='login-form'>
+							<form className='login-form' onSubmit={onSubmit}>
 								<Stack spacing="5">
 									<FormControl>
 										<FormLabel htmlFor="username">Username</FormLabel>
-										<Input id="username" isInvalid={invalidUsername} errorBorderColor='crimson' type="text" onChange={(e) => setUsername(e.target.value)}/>
+										<Input 
+											id="username" 
+											type="text" 
+											name='username'
+											isInvalid={inputErrors.username}
+											errorBorderColor='crimson'
+											value={inputs.username}
+											onFocus={(event) => {setInputErrors({...inputErrors, username: false}); setErrorMessage('');}}
+											onChange={(event) => setInputs({...inputs, username: event.target.value})}
+											onBlur={(event) => {setInputErrors({...inputErrors, username: false});validateUsername(event.target.value, inputErrors, setInputErrors); }}
+										/>
 									</FormControl>
 									<FormControl>
 										<FormLabel htmlFor="password">Password</FormLabel>
@@ -99,14 +113,17 @@ export function LoginPage(){
 												name="password"
 												type={isOpen ? 'text' : 'password'}
 												autoComplete="current-password"
-												required
-												isInvalid={invalidPassword} 
+												isInvalid={inputErrors.password}
 												errorBorderColor='crimson'
-												onChange={(e) => setPassword(e.target.value)}
+												value={inputs.password} 
+												onFocus={(event) => {setInputErrors({...inputErrors, password: false});}}
+												onChange={(event) => setInputs({...inputs, password: event.target.value})} 
+												onBlur={(event) => {setInputErrors({...inputErrors, password: false}); validatePassword(event.target.value, inputErrors, setInputErrors); }}
 											/>
 											<InputRightElement>
 												<IconButton
 													variant="text"
+													type='button'
 													aria-label={isOpen ? 'Mask password' : 'Reveal password'}
 													icon={isOpen ? <HiEyeOff /> : <HiEye />}
 													onClick={onClickReveal}
@@ -114,7 +131,7 @@ export function LoginPage(){
 											</InputRightElement>
 										</InputGroup>
 									</FormControl>
-									{ (invalidUsername || invalidPassword) && <Text color='crimson'>{errorMessage}</Text>}
+									{ (inputErrors.username && inputErrors.password && errorMessage) && <Text color='crimson'>{errorMessage}</Text>}
 									{ signUp && <Text color='green.500'>Account created successfully.</Text>}
 								</Stack>
 								<HStack justify="space-between">
@@ -124,8 +141,16 @@ export function LoginPage(){
 									</Button>
 								</HStack>
 								<Stack spacing="6">
-									<Button type='submit' onClick={onSubmit}
-									>Log in</Button>
+									<Button 
+										isLoading={submitting}
+										colorScheme='blue'
+										spinner={
+											<Spinner />
+										} 
+										type='submit'
+									>
+										Login
+									</Button>
 								</Stack>
 
 							</form>

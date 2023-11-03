@@ -25,44 +25,30 @@ export const useAuthContext = (): IAuthContext => {
 				setIsLoading(false);
 			})
 			.catch(() => {
+				console.log('ERR');
 				setUser({});
 				setIsAuthenticated(false);
 				setIsLoading(false);
+				console.log(user, 'usss');
 			});
 	}, []);
 
 	const signIn = async (username: string, password: string) => {
-		try {
-			const result = await Auth.signIn(username, password);
-			setUser(result);
-			setIsAuthenticated(true);
-			return { success: true };
-		} catch (error: any) {
-			console.log(error);
-			return {
-				success: false,
-				type: error.name,
-				message: error.message,
-			};
-		}
+		const result = await Auth.signIn({username, password});
+		console.log('REZ', result);
+		setUser(result);
+		setIsAuthenticated(true);
+		return { success: true };
 	};
 
 	const signUp = async (username: string, password: string, attributes?: object) => {
-		try{
-			const result = await Auth.signUp({username, password, attributes});
-			return { success: true };
-		} catch (error: any) {
-			return {
-				success: false,
-				type: error.name,
-				message: error.message,
-			};
-		}
+		await Auth.signUp({username, password, attributes});
+		return { success: true };
 	};
 
 	const signOut = async () => {
 		try {
-			setIsLoading(true);            
+			setIsLoading(true);
 			await Auth.signOut();
 			setUser({});
 			setIsAuthenticated(false);
