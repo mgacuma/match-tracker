@@ -5,7 +5,7 @@ import { FiSearch } from 'react-icons/fi';
 export function SearchBar(){
 	const [value, setValue] = useState('');
 
-	function onSubmit(e){
+	function onSubmit(e:  React.FormEvent<HTMLOrSVGElement>){
 		e.preventDefault();
 		setValue(value.trim());
 		if(value.length !== 0){

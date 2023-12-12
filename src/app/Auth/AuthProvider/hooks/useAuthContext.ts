@@ -34,7 +34,6 @@ export const useAuthContext = (): IAuthContext => {
 
 	const signIn = async (username: string, password: string) => {
 		const result = await Auth.signIn({username, password});
-		console.log('REZ', result);
 		setUser(result);
 		setIsAuthenticated(true);
 		return { success: true };

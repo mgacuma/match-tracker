@@ -5,13 +5,6 @@ import { IAuthContext, useAuthContext } from './hooks/useAuthContext';
 Amplify.configure({
 	userPoolId: import.meta.env.VITE_COGNITO_USER_POOL_ID,
 	userPoolWebClientId: import.meta.env.VITE_COGNITO_WEB_CLIENT_ID,
-	cookieStorage: {
-		domain: import.meta.env.VITE_ENV === 'prod' ? import.meta.env.VITE_COGNITO_PROD_DOMAIN : 'localhost',
-		path: '/match-tracker',
-		expires: 365,
-		sameSite: 'strict',
-		secure: import.meta.env.VITE_ENV === 'prod',
-	},
 	authenticationFlowType: 'USER_SRP_AUTH',
 });
 

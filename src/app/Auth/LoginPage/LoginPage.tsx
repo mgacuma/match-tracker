@@ -56,7 +56,6 @@ export function LoginPage(){
 						window.location.pathname = '/match-tracker/';
 					}
 				}).catch((err) => {
-					console.log('ERROR FIRE');
 					setErrorMessage(err.message);
 					setInputErrors({username: true, password: true});
 					console.log(err.message);
