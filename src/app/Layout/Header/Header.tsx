@@ -4,7 +4,7 @@ import { SearchBar } from './SearchBar/SearchBar';
 import { AuthGroup } from './AuthGroup/AuthGroup';
 import { LogoBox } from './LogoBox/LogoBox';
 import { Flex, Hide, Spacer } from '@chakra-ui/react';
-import { useAuth } from '../Auth/AuthProvider/AuthProvider';
+import { useAuth } from '../../Auth/AuthProvider/AuthProvider';
 
 export function Header (props: {}) {
 

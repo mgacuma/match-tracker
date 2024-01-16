@@ -1,5 +1,5 @@
 import { Flex, Menu, MenuButton, Button, Avatar, MenuList, MenuItem, MenuDivider, CircularProgress } from '@chakra-ui/react';
-import { useAuth } from '../../Auth/AuthProvider/AuthProvider';
+import { useAuth } from '../../../Auth/AuthProvider/AuthProvider';
 
 export function UserMenu(){
 	const { isAuthenticated, user, signOut, isLoading } = useAuth();
